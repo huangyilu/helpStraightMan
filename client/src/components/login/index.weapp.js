@@ -1,5 +1,6 @@
 import Taro, { Component } from "@tarojs/taro"
 import { View, Text, Button } from "@tarojs/components"
+import cloud from '../../utils/request'
 
 export default class Login extends Component {
   state = {
@@ -12,21 +13,31 @@ export default class Login extends Component {
 
   componentWillUnmount() {}
 
-  componentDidShow() {}
+  componentDidShow() {
+    this.getLogin()
+  }
 
   componentDidHide() {}
 
   getLogin = () => {
-    Taro.cloud
-      .callFunction({
-        name: "login",
-        data: {}
+    // Taro.cloud
+    //   .callFunction({
+    //     name: "login",
+    //     data: {}
+    //   })
+    //   .then(res => {
+    //     this.setState({
+    //       context: res.result
+    //     })
+    //   })
+    cloud.callFun({
+      name: 'login'
+    }).then(res => {
+      this.setState({
+        context: res
       })
-      .then(res => {
-        this.setState({
-          context: res.result
-        })
-      })
+      console.log('login = ', res)
+    })
   }
 
   render() {
