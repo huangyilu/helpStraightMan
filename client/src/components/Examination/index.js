@@ -4,49 +4,50 @@
 */
 
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image } from '@tarojs/components'
+import { View, Image, Swiper, SwiperItem } from '@tarojs/components'
 import './index.less'
-
-import cloud from '../../utils/request'
-
+import request from '@/utils/request'
 
 export default class Examination extends Component {
   state = {
-    list: [
-      {
-        qs_id: 0,
-        question: '下面哪一个最贵？',
-        options: [{
-            imgUrl: 'cloud://atest-cdea75.83ba-atest-cdea75-1255705280/images/WechatIMG273.jpeg',
-            text: 'A'
-          }],
-        answer: 0
-      }
-    ]
+    list: []
   }
 
   componentWillMount () { }
 
   componentDidMount () {
-    // this.getList()
+    this.getList()
   }
 
   componentWillUnmount () { }
 
   componentDidShow () {
-    this.getList()
+    // this.getList()
   }
 
   componentDidHide () { }
 
   getList () {
-    cloud.callFun({
+    request.callFun({
       name: 'exam_list'
     }).then(res => {
       this.setState({
-        list: res
+        list: res.map(item => {
+          return {
+            ...item,
+            choose: -1
+          }
+        })
       })
       console.log(' getlist = ', res)
+    })
+  }
+
+  onClickOps (index, j, e) {
+    let list = this.state.list
+    list[index].choose = j
+    this.setState({
+      list
     })
   }
 
@@ -54,30 +55,46 @@ export default class Examination extends Component {
 
     let question = this.state.list.map((item, index) => {
       return (
-        <View key={item.qs_id}>
-          <View>QS{index+1} : {item.question}</View>
+        <SwiperItem key={item._id} className='ev-ops__item'>
+          <View className='ev-ops__title'>{index+1}、 {item.question}</View>
+          <View className='ev-ops__bg'>
           {
             item.options.map((op, j) => {
               return (
-                <View key={j}>
-                  <Image src={op.imgUrl} mode='widthFix' />
-                  <View>
-                    {op.text}
+                <View className='ev-ops' key={j} onClick={this.onClickOps.bind(this, index, j)}>
+                  {
+                    op.img.map(image => {
+                      return (
+                        <View className='ev-ops__img-bg'>
+                          <Image key={image.url} className='ev-ops__img' src={image.url} mode='widthFix' />
+                        </View>
+                      )
+                    })
+                  }
+                  <View className={ j === item.choose ? 'ev-ops__act': '' }>
+                    { op.text }
                   </View>
                 </View>
               )
             })
           }
-          <View>
-
           </View>
-        </View>
+        </SwiperItem>
       )
     })
 
     return (
       <View className='examination-view'>
-        {question}
+        <Swiper
+          className='ev-ops__swiper'
+          indicatorColor='#999'
+          indicatorActiveColor='#333'
+          circular
+          indicatorDots
+          displayMultipleItems
+        >
+          { question }
+        </Swiper>
       </View>
     )
   }

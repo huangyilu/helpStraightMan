@@ -4,7 +4,8 @@
  */
 
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
+import { AtFab } from 'taro-ui'
 import './index.less'
 
 // import Login from '../../components/login/index'
@@ -37,6 +38,11 @@ export default class Index extends Component {
     //   url: {'/pages/'}
     // })
   }
+  onButtonClick () {
+    Taro.navigateTo({
+      url: '/pages/backstage/index'
+    })
+  }
 
   render () {
     return (
@@ -44,6 +50,10 @@ export default class Index extends Component {
         {/* <View onClick={this.onClick}>前往直男大考卷</View> */}
         {/* <Login></Login> */}
         <Examination></Examination>
+
+        <View className='home-backstage__btn'>
+          <AtFab onClick={this.onButtonClick.bind(this)} >录入</AtFab>
+        </View>
       </View>
     )
   }

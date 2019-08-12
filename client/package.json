@@ -34,12 +34,14 @@
     "@tarojs/taro-tt": "1.3.5",
     "@tarojs/taro-weapp": "^1.3.5",
     "nerv-devtools": "^1.4.0",
-    "nervjs": "^1.4.0"
+    "nervjs": "^1.4.0",
+    "taro-ui": "2.2.0"
   },
   "devDependencies": {
     "@tarojs/plugin-babel": "1.3.5",
     "@tarojs/plugin-csso": "1.3.5",
     "@tarojs/plugin-less": "1.3.5",
+    "@tarojs/plugin-sass": "^1.3.12",
     "@tarojs/plugin-uglifyjs": "1.3.5",
     "@tarojs/webpack-runner": "1.3.5",
     "@types/react": "^16.4.6",
@@ -52,6 +54,7 @@
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.19.1",
     "eslint-config-taro": "1.3.5",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-taro": "1.3.5"

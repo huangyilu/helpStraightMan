@@ -1,8 +1,21 @@
 {
-  "extends": ["taro"],
+  "extends": [
+    "taro",
+    "@vue/standard"
+  ],
   "rules": {
     "no-unused-vars": ["error", { "varsIgnorePattern": "Taro" }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }]
   },
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "settings": {
+      "import/resolver": {
+        "alias": {
+          "map": [
+            ["@/components", "./src/components"],
+            ["@/utils", "./src/utils"]
+          ]
+        }
+      }
+    }
   }
