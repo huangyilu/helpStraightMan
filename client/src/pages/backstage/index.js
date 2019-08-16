@@ -55,6 +55,7 @@ class Index extends Component {
     this.setState({
       question
     })
+    // TODO: test
   }
   handleAnswerChange (value, e) {
     console.log(value)
