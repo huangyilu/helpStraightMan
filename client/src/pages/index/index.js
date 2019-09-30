@@ -9,7 +9,7 @@ import { AtFab } from 'taro-ui'
 import './index.less'
 
 // import Login from '../../components/login/index'
-import Examination from '../../components/Examination/index'
+// import Examination from '../../components/Examination22/index'
 
 export default class Index extends Component {
 
@@ -49,11 +49,11 @@ export default class Index extends Component {
       <View className='index'>
         {/* <View onClick={this.onClick}>前往直男大考卷</View> */}
         {/* <Login></Login> */}
-        <Examination></Examination>
+        {/* <Examination></Examination> */}
 
-        <View className='home-backstage__btn'>
-          <AtFab onClick={this.onButtonClick.bind(this)} >录入</AtFab>
-        </View>
+        {/* TODO: test */}
+        {/* <button open-type="contact">进入客服会话</button> */}
+
       </View>
     )
   }

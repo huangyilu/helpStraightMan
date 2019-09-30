@@ -9,25 +9,30 @@ import './index.less'
 import request from '@/utils/request'
 
 export default class Examination extends Component {
+
+  config = {
+    navigationBarTitleText: '直男大考卷'
+  }
+
   state = {
     list: []
   }
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getList()
   }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () {
+  componentDidShow() {
     // this.getList()
   }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
-  getList () {
+  getList() {
     request.callFun({
       name: 'exam_list'
     }).then(res => {
@@ -43,7 +48,7 @@ export default class Examination extends Component {
     })
   }
 
-  onClickOps (index, j, e) {
+  onClickOps(index, j, e) {
     let list = this.state.list
     list[index].choose = j
     this.setState({
@@ -51,33 +56,33 @@ export default class Examination extends Component {
     })
   }
 
-  render () {
+  render() {
 
     let question = this.state.list.map((item, index) => {
       return (
         <SwiperItem key={item._id} className='ev-ops__item'>
-          <View className='ev-ops__title'>{index+1}、 {item.question}</View>
+          <View className='ev-ops__title'>{index + 1}、 {item.question}</View>
           <View className='ev-ops__bg'>
-          {
-            item.options.map((op, j) => {
-              return (
-                <View className='ev-ops' key={j} onClick={this.onClickOps.bind(this, index, j)}>
-                  {
-                    op.img.map(image => {
-                      return (
-                        <View className='ev-ops__img-bg'>
-                          <Image key={image.url} className='ev-ops__img' src={image.url} mode='widthFix' />
-                        </View>
-                      )
-                    })
-                  }
-                  <View className={ j === item.choose ? 'ev-ops__act': '' }>
-                    { op.text }
+            {
+              item.options.map((op, j) => {
+                return (
+                  <View className='ev-ops' key={j+'ev'} onClick={this.onClickOps.bind(this, index, j)}>
+                    {
+                      op.img.map(image => {
+                        return (
+                          <View className='ev-ops__img-bg'>
+                            <Image key={image.url} className='ev-ops__img' src={image.url} mode='widthFix' />
+                          </View>
+                        )
+                      })
+                    }
+                    <View className={j === item.choose ? 'ev-ops__act' : ''}>
+                      {op.text}
+                    </View>
                   </View>
-                </View>
-              )
-            })
-          }
+                )
+              })
+            }
           </View>
         </SwiperItem>
       )
@@ -93,8 +98,12 @@ export default class Examination extends Component {
           indicatorDots
           displayMultipleItems
         >
-          { question }
+          {question}
         </Swiper>
+
+        <View className='home-backstage__btn'>
+          <AtFab onClick={this.onButtonClick.bind(this)} >录入</AtFab>
+        </View>
       </View>
     )
   }
